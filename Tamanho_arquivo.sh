@@ -19,7 +19,7 @@ read -p "Informe o tamanho final do arquivo (em bytes): " TAMANHO
 
 cat /dev/null > $NOME #remover tudo que tem no arquico caso exista
 
-PORC_EXIBIIDA=0
+PORC_EXIBIDA=0
 
 until [ $TAMANHO -le $(stat --printf=%s "$NOME") ] #tamanho_final <= tamanho_atual
 do
@@ -27,12 +27,14 @@ do
 	TAMANHO_ATUAL=$(stat --printf=%s "$NOME")
 
 	PORC_ATUAL=$(expr $TAMANHO_ATUAL \* 100 / $TAMANHO)
-
+	
+	
 	if [ $(expr $PORC_ATUAL % 10) -eq 0 -a $PORC_EXIBIDA -ne $PORC_ATUAL ]
 	then
 		echo "Concluido: $PORC_ATUAL% - Tamanho do Arquivo: $TAMANHO_ATUAL"
 		PORC_EXIBIDA=$PORC_ATUAL
 	fi
+	
 done
 
 
